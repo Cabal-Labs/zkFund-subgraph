@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: RequestCharities
-    network: goerli
+    network: zksync-goerli
     source:
       address: "0xD9ec112662041b5bb456c96A0a4B89246217449E"
       abi: RequestCharities

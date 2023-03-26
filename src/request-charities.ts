@@ -7,9 +7,7 @@ import {
 } from "../generated/RequestCharities/RequestCharities"
 import {
   ApproveVote,
-  CharityApproved,
   CharityCreated,
-  CharityDisapproved,
   DisapproveVote
 } from "../generated/schema"
 
@@ -27,54 +25,71 @@ export function handleApproveVote(event: ApproveVoteEvent): void {
   entity.save()
 }
 
+
 export function handleCharityApproved(event: CharityApprovedEvent): void {
-  let entity = new CharityApproved(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.charityId = event.params.charityId
-  entity.charityAddress = event.params.charityAddress
-  entity.name = event.params.name
-  entity.status = event.params.status
+  let _id = event.params.charityAddress.concatI32(event.params.charityId.toI32())
+  let charity = CharityCreated.load(_id)
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  if (!charity){
+    charity = new CharityCreated(
+      event.params.charityAddress.concatI32(event.params.charityId.toI32())
+    )
+    charity.charityId = event.params.charityId
+    charity.charityAddress = event.params.charityAddress
+    charity.name = event.params.name
 
-  entity.save()
+    charity.blockNumber = event.block.number
+    charity.blockTimestamp = event.block.timestamp
+    charity.transactionHash = event.transaction.hash
+    charity.status = event.params.status
+  }
+  charity.status = event.params.status
+
+  charity.save()
 }
 
 export function handleCharityCreated(event: CharityCreatedEvent): void {
-  let entity = new CharityCreated(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+  let charity = new CharityCreated(
+    event.params.charityAddress.concatI32(event.params.charityId.toI32())
   )
-  entity.charityAddress = event.params.charityAddress
-  entity.name = event.params.name
-  entity.charityId = event.params.charityId
-  entity.info = event.params.info
-  entity.status = event.params.status
+  charity.charityAddress = event.params.charityAddress
+  charity.name = event.params.name
+  charity.charityId = event.params.charityId
+  charity.info = event.params.info
+  charity.status = event.params.status
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  charity.blockNumber = event.block.number
+  charity.blockTimestamp = event.block.timestamp
+  charity.transactionHash = event.transaction.hash
 
-  entity.save()
+  charity.save()
 }
+
+
+
 
 export function handleCharityDisapproved(event: CharityDisapprovedEvent): void {
-  let entity = new CharityDisapproved(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.charityAddress = event.params.charityAddress
-  entity.charityId = event.params.charityId
-  entity.name = event.params.name
-  entity.status = event.params.status
+  let _id = event.params.charityAddress.concatI32(event.params.charityId.toI32())
+  let charity = CharityCreated.load(_id)
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  if (!charity){
+    charity = new CharityCreated(
+      event.params.charityAddress.concatI32(event.params.charityId.toI32())
+    )
+    charity.charityId = event.params.charityId
+    charity.charityAddress = event.params.charityAddress
+    charity.name = event.params.name
 
-  entity.save()
+    charity.blockNumber = event.block.number
+    charity.blockTimestamp = event.block.timestamp
+    charity.transactionHash = event.transaction.hash
+    charity.status = event.params.status
+  }
+  charity.status = event.params.status
+
+  charity.save()
 }
+
 
 export function handleDisapproveVote(event: DisapproveVoteEvent): void {
   let entity = new DisapproveVote(

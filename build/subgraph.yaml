@@ -1,0 +1,36 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: RequestCharities
+    network: zksync-goerli
+    source:
+      address: "0xD9ec112662041b5bb456c96A0a4B89246217449E"
+      abi: RequestCharities
+      startBlock: 3060338
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ApproveVote
+        - CharityApproved
+        - CharityCreated
+        - CharityDisapproved
+        - DisapproveVote
+      abis:
+        - name: RequestCharities
+          file: RequestCharities/abis/RequestCharities.json
+      eventHandlers:
+        - event: ApproveVote(address,uint256)
+          handler: handleApproveVote
+        - event: CharityApproved(uint256,address,string,uint8)
+          handler: handleCharityApproved
+        - event: CharityCreated(address,string,uint256,string,uint8)
+          handler: handleCharityCreated
+        - event: CharityDisapproved(address,uint256,string,uint8)
+          handler: handleCharityDisapproved
+        - event: DisapproveVote(address,uint256)
+          handler: handleDisapproveVote
+      file: RequestCharities/RequestCharities.wasm
