@@ -1,0 +1,51 @@
+type ApproveVote @entity(immutable: true) {
+  id: Bytes!
+  validator: Bytes! # address
+  charityId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type CharityApproved @entity(immutable: true) {
+  id: Bytes!
+  charityId: BigInt! # uint256
+  charityAddress: Bytes! # address
+  name: String! # string
+  status: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type CharityCreated @entity(immutable: true) {
+  id: Bytes!
+  charityAddress: Bytes! # address
+  name: String! # string
+  charityId: BigInt! # uint256
+  info: String! # string
+  status: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type CharityDisapproved @entity(immutable: true) {
+  id: Bytes!
+  charityAddress: Bytes! # address
+  charityId: BigInt! # uint256
+  name: String! # string
+  status: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type DisapproveVote @entity(immutable: true) {
+  id: Bytes!
+  validator: Bytes! # address
+  charityId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

@@ -1,0 +1,8 @@
+{
+  "goerli": {
+    "RequestCharities": {
+      "address": "0xD9ec112662041b5bb456c96A0a4B89246217449E",
+      "startBlock": 3060338
+    }
+  }
+}
